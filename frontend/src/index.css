@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.Form_Border {
+    border: 2px solid black;
+   
+}
