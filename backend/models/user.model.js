@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -19,19 +20,27 @@ const userSchema = new Schema({
     required: true,
     unique: true,
     trim: true,
+    match: [/.+@.+\..+/, "Please enter a valid email address"],
   },
   password: {
     type: String,
     required: true,
     trim: true,
-    // minlength: 6,
+    minlength: 6,
   },
   addharCardNumber: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
+    minlength: 12,
+    maxlength: 12,
+    validate: {
+      validator: function (v) {
+        return /^\d{12}$/.test(v);
+      },
+      message: "Aadhar Card Number must be exactly 12 digits",
+    },
   },
-
   role: {
     type: String,
     enum: ["voter", "admin"],
@@ -45,10 +54,15 @@ const userSchema = new Schema({
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
-    next();
+    return next();
   }
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
+
+  try {
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 userSchema.methods.isPasswordCorrect = async function (password) {

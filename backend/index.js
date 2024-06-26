@@ -46,16 +46,14 @@ if (process.env.NODE_ENV === "production") {
 
 // --------------------------deployment------------------------------
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 connectDB()
   .then(() => {
     app.listen(process.env.PORT || 8000, () => {
-      console.log(`server running at ${process.env.PORT} `);
+      console.log(`Server running at port ${process.env.PORT || 8000}`);
     });
   })
   .catch((err) => {
-    console.log("MONGO db connection failed !!!", err);
+    console.log("MONGO DB connection failed!!!", err);
   });
+
+export default app;

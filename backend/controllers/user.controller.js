@@ -6,7 +6,10 @@ import ApiError from "../utils/ApiError.js";
 const options = {
   httpOnly: true,
   secure: true,
+  maxAge: 24 * 60 * 60 * 1000,
 };
+
+
 
 const genrateTokens = async (userId) => {
   try {
@@ -28,20 +31,16 @@ export const signup = asyncHandler(async (req, res) => {
 
     const adminUser = await User.findOne({ role: "admin" });
     if (data.role === "admin" && adminUser) {
-      // throw new ApiError(400, "Admin already exists");
-
       return res
         .status(400)
-        .json(
-          new ApiResponse(400, {}, " Only one Admin is  exists in system ")
-        );
+        .json(new ApiResponse(400, {}, "Only one Admin exists in the system"));
     }
 
     const existed = await User.findOne({ email: data.email });
     if (existed) {
       return res
         .status(400)
-        .json(new ApiResponse(400, {}, " User already exists"));
+        .json(new ApiResponse(400, {}, "User already exists"));
     }
 
     const user = new User(data);
@@ -51,7 +50,7 @@ export const signup = asyncHandler(async (req, res) => {
     if (!createdUser) {
       return res
         .status(400)
-        .json(new ApiResponse(400, {}, " User not created successfully"));
+        .json(new ApiResponse(400, {}, "User not created successfully"));
     }
 
     const token = await genrateTokens(user._id);
@@ -79,14 +78,22 @@ export const login = asyncHandler(async (req, res) => {
     if (!addharCardNumber || !password) {
       return res
         .status(400)
-        .json(new ApiResponse(400, {}, " Please provide email and password"));
+        .json(
+          new ApiResponse(
+            400,
+            {},
+            "Please provide addharCardNumber and password"
+          )
+        );
     }
     const user = await User.findOne({ addharCardNumber });
 
     if (!user) {
       return res
         .status(400)
-        .json(new ApiResponse(400, {}, " User not found with this email"));
+        .json(
+          new ApiResponse(400, {}, "User not found with this addharCardNumber")
+        );
     }
 
     const isPasswordValid = await user.isPasswordCorrect(password);
@@ -95,7 +102,7 @@ export const login = asyncHandler(async (req, res) => {
       return res
         .status(400)
         .json(
-          new ApiResponse(400, {}, " Password is incorrect, please try again")
+          new ApiResponse(400, {}, "Password is incorrect, please try again")
         );
     }
 
