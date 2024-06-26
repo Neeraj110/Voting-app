@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { useSelector } from "react-redux";
-
-const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
-const token = userInfo?.data.token || "";
-
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "",
-  prepareHeaders: (headers) => {
+  prepareHeaders: (headers, { getState }) => {
+    const state = getState();
+    const token = state.user?.userInfo?.data?.token;
+
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
     }
