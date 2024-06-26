@@ -15,7 +15,7 @@ function Profile() {
   const { userInfo } = useSelector((state) => state.auth);
   // console.log(userInfo.token);
 
-  const token = userInfo.data.token ;
+  const token = userInfo.data.token;
 
   const handleEditClick = () => {
     navigate("/update-profile");
@@ -54,7 +54,7 @@ function Profile() {
             <strong>Username:</strong> {user.username}
           </p>
           <p>
-            <strong>Aadhaar Card Number:</strong> {user.aadharCardNumber}
+            <strong>Aadhaar Card Number: {user.addharCardNumber}</strong>
           </p>
           <p>
             <strong>Email:</strong> {user.email}
