@@ -1,13 +1,13 @@
 {
   "name": "voting-app",
   "version": "1.0.0",
-  "description": "\"A secure voting app\"",
+  "description": "A secure voting app",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node backend/index.js",
     "dev": "nodemon backend/index.js",
-    "build": "npm install  && npm install  --prefix frontend && npm run build --prefix frontend"
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "Neeraj",
   "license": "ISC",
