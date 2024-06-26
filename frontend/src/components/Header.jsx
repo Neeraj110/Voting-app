@@ -34,6 +34,12 @@ function Header() {
       {userInfo ? (
         <div className="flex items-center gap-3 md:gap-5">
           <Link
+            to="/"
+            className="text-sm md:text-base hover:text-white bg-white px-2 md:px-4 py-1 md:py-2 rounded-full hover:bg-black"
+          >
+            Home
+          </Link>
+          <Link
             to="/profile"
             className="text-sm md:text-base hover:text-white bg-white px-2 md:px-4 py-1 md:py-2 rounded-full hover:bg-black"
           >
