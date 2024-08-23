@@ -21,7 +21,7 @@ function Home() {
           <h1 className="text-center text-2xl md:text-3xl lg:text-4xl">
             You are not logged in. Please login or create an account.
           </h1>
-          <div className="mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-9">
+          <div className="mt-9 md:mt-12 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-9">
             <Link
               to="/login"
               className="text-lg md:text-xl lg:text-2xl text-white px-8 py-3 rounded-full bg-black hover:text-white hover:bg-blue-500"
